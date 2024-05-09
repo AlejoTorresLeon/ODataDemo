@@ -22,29 +22,31 @@ namespace WebApplication1.Controllers
 
 
         [HttpGet]
+        [EnableQuery]
         [Route("Get")]
         public IActionResult Get(ODataQueryOptions<Persona> options)
         {
-            // Obtenemos el valor de $top si está presente en la consulta
-            var topValue = options.Top?.Value;
 
-            // Si $top no está presente o es mayor que 10, devolvemos un BadRequest
-            if (!topValue.HasValue)
+            if (options.Top == null)
             {
-                return BadRequest("Debe especificar un valor para $top");
-            }
-            else if (topValue > 10)
-            {
-                return BadRequest("Especifique un valor inferior a 10 en $top");
+                return BadRequest("Por favor, incluya el parámetro $top para limitar los resultados");
             }
 
-            var settings = new ODataQuerySettings();
+            int topValue;
+            if (!int.TryParse(options.Top.RawValue, out topValue))
+            {
+                return BadRequest("El valor de $top no es válido");
+            }
 
-            IQueryable<Persona> result = options.ApplyTo(personas.AsQueryable(), settings) as IQueryable<Persona>;
+            if (topValue < 0 || topValue > 100)
+            {
+                return BadRequest("El parámetro $top debe ser entre 0 y 100");
+            }
 
-            return Ok(result);
+
+            return Ok(personas.AsQueryable());
         }
-
-
     }
+
+
 }
