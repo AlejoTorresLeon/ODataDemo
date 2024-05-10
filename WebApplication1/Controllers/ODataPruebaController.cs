@@ -38,9 +38,9 @@ namespace WebApplication1.Controllers
                 return BadRequest("El valor de $top no es válido");
             }
 
-            if (topValue < 0 || topValue > 100)
+            if (topValue < 0 || topValue > 1000)
             {
-                return BadRequest("El parámetro $top debe ser entre 0 y 100");
+                return BadRequest("El parámetro $top debe ser entre 0 y 1000");
             }
 
 

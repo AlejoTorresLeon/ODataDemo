@@ -8,7 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllers()
     .AddOData(opt => opt.Count().Filter().Expand().Select().OrderBy()
-    .SetMaxTop(500)
+    .SetMaxTop(null)
     ); // Agrega los servicios de OData
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -41,5 +41,6 @@ app.Run();
 {
     var odataBuilder = new ODataConventionModelBuilder();
     odataBuilder.EntitySet<Persona>("ODataPrueba");
+
     return odataBuilder.GetEdmModel();
 }
