@@ -16,6 +16,14 @@ namespace WebApplication1.QueryGrapQL
             new Persona { Id = 6 ,Nombre = "Mario", Apellido = "Ruiz", Edad = 11, Ciudad = "Monteria" }
         };
 
+        private List<Contrato> contratos = new List<Contrato>
+        {
+            new Contrato {Id = 1,PersonaId = 5,Descripcion = "Contrato para hacer un trabajo x",DuracionDias = 5},
+            new Contrato {Id = 2,PersonaId = 2,Descripcion = "Contrato para hacer un trabajo t",DuracionDias = 9},
+            new Contrato {Id = 3,PersonaId = 2,Descripcion = "Contrato para hacer un trabajo y",DuracionDias = 10},
+            new Contrato {Id = 4,PersonaId = 6,Descripcion = "Contrato para hacer un trabajo y",DuracionDias = 2}
+        };
+
         [UseProjection]
         [UseFiltering]
         [UseSorting]
@@ -24,6 +32,13 @@ namespace WebApplication1.QueryGrapQL
             return personas;
         }
 
+        [UseProjection]
+        [UseFiltering]
+        [UseSorting]
+        public List<Contrato> GetContratos()
+        {
+            return contratos;
+        }
 
     }
 }

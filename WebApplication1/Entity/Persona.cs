@@ -1,4 +1,6 @@
-﻿namespace WebApplication1.Entity
+﻿using System.Text.Json.Serialization;
+
+namespace WebApplication1.Entity
 {
     public class Persona
     {
@@ -7,6 +9,9 @@
         public string Apellido { get; set; }
         public int Edad { get; set; }
         public string Ciudad { get; set; }
+
+//        [JsonIgnore]
+        public Contrato? Contrato  { get; set; }
     }
 
 }
