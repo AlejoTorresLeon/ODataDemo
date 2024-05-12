@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.OData;
 using Microsoft.OData.Edm;
 using Microsoft.OData.ModelBuilder;
 using WebApplication1.Entity;
+using WebApplication1.QueryGrapQL;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,6 +15,8 @@ builder.Services.AddControllers()
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddGraphQLServer().AddQueryType<PersonaData>().AddProjections().AddFiltering().AddSorting();
 
 var app = builder.Build();
 
@@ -35,6 +38,7 @@ app.UseEndpoints(endpoints =>
     endpoints.MapControllers();
 });
 
+app.MapGraphQL("/grapql");
 app.Run();
 
  IEdmModel GetEdmModel()
